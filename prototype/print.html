@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>AI Mind · print</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      @page { size: landscape; margin: 0.4cm; }
+      html, body { overflow: visible !important; height: auto !important; background: #f0e8d6 !important; }
+      .app.graph-only { height: 100vh !important; }
+      .app.graph-only::after { background: none !important; }
+      /* Hide live-app chrome that doesn't belong in print */
+      .header-btn { display: none !important; }
+      .canvas-wrap { overflow: visible !important; padding-top: 60px !important; }
+      .inspector { display: none !important; }
+      .folio { display: none !important; }
+      .legend-stat { display: none !important; }
+      svg.board { margin: 0 auto !important; }
+      /* Force colours to print */
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+      @media print {
+        html, body, #root, .app.graph-only { height: auto !important; min-height: auto !important; }
+        .app.graph-only {
+          height: 19cm !important;
+          width: 28cm !important;
+          page-break-after: avoid;
+          break-after: avoid;
+        }
+        .canvas-wrap {
+          height: 19cm !important;
+          padding-top: 50px !important;
+          overflow: hidden !important;
+        }
+        svg.board {
+          width: 27cm !important;
+          height: auto !important;
+        }
+        .app::before { opacity: 0.45 !important; }
+        .header { position: absolute !important; }
+        body { overflow: hidden !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+    <script type="text/babel" src="data.js"></script>
+    <script type="text/babel" src="shared.js"></script>
+    <script type="text/babel" src="canvas.jsx"></script>
+    <script type="text/babel" src="app.jsx"></script>
+
+    <script type="text/babel">
+      // Wait for fonts + Babel-transpiled scripts to mount the app, then print.
+      (async function autoPrint() {
+        try { if (document.fonts && document.fonts.ready) await document.fonts.ready; } catch (e) {}
+        // Babel scripts execute after parse; the app mounts asynchronously.
+        // Poll for an svg.board element, then wait 500ms.
+        const start = Date.now();
+        await new Promise((resolve) => {
+          (function check() {
+            if (document.querySelector("svg.board")) return resolve();
+            if (Date.now() - start > 8000) return resolve();
+            setTimeout(check, 100);
+          })();
+        });
+        await new Promise((r) => setTimeout(r, 600));
+        window.print();
+      })();
+    </script>
+  </body>
+</html>
