@@ -6,8 +6,12 @@ A personal, persistent mind map of your journey through AI history — chat with
 
 | Path | Purpose |
 |------|---------|
-| [`plan.md`](plan.md) | Product & engineering plan |
+| [`plan.md`](plan.md) | Product & engineering plan (data model, phases, pricing) |
+| [`docs/PROJECT_SETUP.md`](docs/PROJECT_SETUP.md) | **What to do now** — stack, repos, sprints, hosting, Postman |
+| [`docs/BRIEF.md`](docs/BRIEF.md) | Problem, solution, MVP benefits, users (pitch-ready) |
 | [`prototype/`](prototype/) | Browser prototype (React + Babel standalone, no build step) |
+
+**Product (locked):** Self-taught AI-history readers; tutor + personal timeline graph; episodic sessions; selective sharing. Details in `plan.md` §1.1.
 
 ## Run the prototype
 

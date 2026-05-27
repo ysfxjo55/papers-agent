@@ -14,12 +14,15 @@ A scholarly notebook in the browser. The user converses with an AI tutor; every 
 
 Lock these down on paper. Each answer constrains the next 10 product decisions.
 
-### 1.1 Product
+### 1.1 Product — **locked** (discussion → implementation)
 
-- Who is the **first** user? (Pick one: AI/ML gradany student · undergraduate CS student · self-taught practitioner · researcher writing a survey · history-of-science enthusiast)
-- What is the *one job* this tool does that no one else does? Working answer: **"help me remember everything I've ever learned about AI history, structured the way I think about it."**
-- What is the user's session length? 5 minutes a day for a year, or 2 hours once a week?
-- Does the user share their notebook? Public, private, or selective?
+- **First user:** Self-taught practitioner reading AI history papers; secondary: history-of-science enthusiast. Not optimizing for grad survey writers in v1.
+- **One job:** Help me remember everything I've ever learned about AI history, structured the way I think about it.
+- **Core interaction:** Chat sets focus on a paper/topic; paper nodes land on the timeline; concepts and marginalia accrete around what the user emphasized (see prototype: paper/concept kinds, focus, annotations).
+- **Session length:** Episodic (reading-aligned); long-horizon accumulation over months. Optimize for second session within a week, not daily streaks.
+- **Sharing:** Selective — private by default; share chosen subgraphs/links when the user chooses.
+
+> Operational setup (repos, stack, sprints, hosting, docs): see [`docs/PROJECT_SETUP.md`](docs/PROJECT_SETUP.md).
 
 ### 1.2 Scope
 
