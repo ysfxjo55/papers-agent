@@ -28,13 +28,7 @@ def get_seed_notebook():
                 y=460               # Added required field
             )
         ],
-        edges=[
-            Edge(
-                from_node="transformer",
-                to="attention",
-                type="enables",
-            ),
-        ],
+        edges=[],
         messages=[
             Message(
                 role="user",
