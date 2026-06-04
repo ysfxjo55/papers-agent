@@ -15,7 +15,34 @@ export default function Home() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light')
 
   useEffect(() => {
-    setState(loadState())
+    async function loadFromApi() {
+      try {
+        const res = await fetch('http://127.0.0.1:8000/notebooks/seed')
+        if (!res.ok) throw new Error(`seed ${res.status}`)
+        const data = await res.json()
+        const nodes = (data.nodes ?? []).map((n: any) => ({
+          ...n,
+          parent_id: n.parent_id ?? undefined,
+          rotation: n.rotation ?? 0,
+          annotations: (n.annotations ?? []).map((a: any) =>
+            typeof a === 'string' ? { text: a, ts: Date.now() } : a
+          ),
+        }))
+        const next: AppState = {
+          nodes,
+          edges: data.edges ?? [],
+          messages: [],
+          focusId: null,
+          newIds: [],
+        }
+        saveState(next)
+        setState(next)
+      } catch (err) {
+        console.warn('API load failed, using localStorage:', err)
+        setState(loadState())
+      }
+    }
+    loadFromApi()
   }, [])
 
   useEffect(() => {
