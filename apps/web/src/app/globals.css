@@ -1,47 +1,53 @@
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=JetBrains+Mono:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 
 :root {
-  --paper: #f0e8d6;
-  --paper-2: #ece2c8;
-  --paper-3: #e3d6b3;
-  --ink: #2a2418;
-  --ink-muted: #6a5a3a;
-  --ink-faded: #8a7a5a;
-  --rule: #c8b890;
-  --rule-soft: #d8caa8;
-  --shadow: 0 2px 4px rgba(42, 36, 24, 0.08);
-  --shadow-strong: 0 4px 14px rgba(42, 36, 24, 0.16);
+  --paper: #F5F1E8;
+  --paper-2: #FDFBF7;
+  --paper-3: #F0EDE5;
+  --ink: #1A2332;
+  --ink-muted: #8B8680;
+  --ink-faded: #A8A39D;
+  --accent: #A67C52;
+  --accent-hover: #D4956B;
+  --secondary: #7A9B7F;
+  --rule: #D4C4B8;
+  --rule-soft: #E2D8CE;
+  --shadow: 0 2px 4px rgba(26, 35, 50, 0.08);
+  --shadow-strong: 0 4px 14px rgba(26, 35, 50, 0.12);
 
-  --svg-edge: #6a5a3a;
-  --svg-arrow: #6a5a3a;
-  --svg-annot-ink: #3a2a14;
-  --svg-concept-fill: #f6efdc;
-  --noise-opacity: 0.6;
-  --bg-radial-1: rgba(122, 92, 46, 0.05);
-  --bg-radial-2: rgba(74, 107, 72, 0.05);
-  --grid-line: rgba(122, 92, 46, 0.05);
+  --svg-edge: #C9B8A8;
+  --svg-arrow: #C9B8A8;
+  --svg-annot-ink: #1A2332;
+  --svg-concept-fill: #FDFBF7;
+  --noise-opacity: 0.4;
+  --bg-radial-1: rgba(166, 124, 82, 0.06);
+  --bg-radial-2: rgba(122, 155, 127, 0.05);
+  --grid-line: rgba(166, 124, 82, 0.06);
 }
 
 body.dark {
-  --paper: #1c1a14;
-  --paper-2: #25221a;
-  --paper-3: #2e2a1f;
-  --ink: #e8dec5;
-  --ink-muted: #b8a878;
-  --ink-faded: #877a55;
-  --rule: #4a4128;
-  --rule-soft: #3a3320;
+  --paper: #0F1419;
+  --paper-2: #1A2332;
+  --paper-3: #1F2B3A;
+  --ink: #E8E6E1;
+  --ink-muted: #8B8680;
+  --ink-faded: #6B6560;
+  --accent: #D4956B;
+  --accent-hover: #E8A87C;
+  --secondary: #7A9B7F;
+  --rule: #2A3542;
+  --rule-soft: #1E2A38;
   --shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
   --shadow-strong: 0 4px 18px rgba(0, 0, 0, 0.55);
 
-  --svg-edge: #a89668;
-  --svg-arrow: #a89668;
-  --svg-annot-ink: #d7c89a;
-  --svg-concept-fill: #2a2618;
-  --noise-opacity: 0.22;
-  --bg-radial-1: rgba(184, 152, 92, 0.06);
-  --bg-radial-2: rgba(120, 160, 116, 0.05);
-  --grid-line: rgba(184, 152, 92, 0.045);
+  --svg-edge: #4A5868;
+  --svg-arrow: #4A5868;
+  --svg-annot-ink: #E8E6E1;
+  --svg-concept-fill: #1A2332;
+  --noise-opacity: 0.15;
+  --bg-radial-1: rgba(212, 149, 107, 0.07);
+  --bg-radial-2: rgba(122, 155, 127, 0.05);
+  --grid-line: rgba(212, 149, 107, 0.04);
 }
 
 * { box-sizing: border-box; }
@@ -50,10 +56,11 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: "Fraunces", "Times New Roman", serif;
+  font-family: "Inter", system-ui, sans-serif;
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  transition: background-color 200ms ease, color 200ms ease;
 }
 
 .app.graph-only {
@@ -93,17 +100,16 @@ body {
   z-index: 6;
   pointer-events: none;
 }
-.brand { display: flex; align-items: baseline; gap: 12px; pointer-events: auto; }
+.brand { display: flex; align-items: center; gap: 10px; pointer-events: auto; }
 .brand-mark {
-  font-family: "Fraunces", serif;
-  font-size: 26px;
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
   font-weight: 700;
-  letter-spacing: -0.5px;
-  color: var(--ink);
-  font-variant: small-caps;
+  letter-spacing: -0.3px;
+  color: var(--accent);
 }
 .brand-tag {
-  font-family: "Fraunces", serif;
+  font-family: "Inter", sans-serif;
   font-style: italic;
   font-size: 12px;
   color: var(--ink-muted);
@@ -115,34 +121,38 @@ body {
 }
 .legend-item {
   display: flex; align-items: center; gap: 6px;
-  font-family: "Fraunces", serif; font-style: italic; font-size: 11px;
+  font-family: "Inter", sans-serif; font-size: 11px; font-weight: 500;
   color: var(--ink-muted);
+  letter-spacing: 0.02em;
 }
 .legend-swatch { width: 10px; height: 10px; border-radius: 2px; border: 1.25px solid currentColor; }
 .legend-stat {
-  font-family: "JetBrains Mono", monospace; font-style: normal; font-size: 10px;
+  font-family: "Inter", monospace; font-size: 11px; font-weight: 500;
   color: var(--ink-faded); margin-left: 14px; padding-left: 14px;
   border-left: 1px solid var(--rule);
+  letter-spacing: 0.02em;
 }
 .header-btn {
-  font-family: "Fraunces", serif;
+  font-family: "Inter", sans-serif;
   font-size: 12px; font-weight: 600;
-  letter-spacing: 0.06em;
-  background: var(--ink);
+  letter-spacing: 0.04em;
+  background: var(--accent);
   color: var(--paper);
   border: none;
-  border-radius: 2px;
-  padding: 7px 12px;
+  border-radius: 6px;
+  padding: 8px 16px;
   cursor: pointer;
   margin-left: 10px;
+  transition: background 150ms ease;
 }
+.header-btn:hover { background: var(--accent-hover); }
 .header-btn.ghost {
   background: transparent;
   color: var(--ink-muted);
   border: 1px solid var(--rule);
 }
-.header-btn.ghost:hover { color: var(--ink); border-color: var(--ink-muted); }
-.header-btn.active { background: var(--ink-muted); }
+.header-btn.ghost:hover { color: var(--ink); border-color: var(--ink-muted); background: transparent; }
+.header-btn.active { background: var(--accent-hover); }
 
 .canvas-wrap {
   position: relative;
@@ -182,24 +192,25 @@ svg.board { display: block; margin: 0 auto; }
   background: var(--paper-2);
   backdrop-filter: blur(6px);
   border: 1px solid var(--rule);
-  border-radius: 3px;
+  border-radius: 8px;
   padding: 16px 18px 18px;
   box-shadow: var(--shadow-strong);
   z-index: 5;
-  font-family: "Fraunces", serif;
+  font-family: "Inter", sans-serif;
 }
 .insp-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
-.insp-year { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--ink-faded); letter-spacing: 0.04em; }
+.insp-year { font-family: "Inter", monospace; font-size: 11px; font-weight: 500; color: var(--ink-faded); letter-spacing: 0.04em; }
 .insp-badge {
-  font-family: "Fraunces", serif; font-style: italic; font-size: 10px;
+  font-family: "Inter", sans-serif; font-size: 10px; font-weight: 500;
   padding: 2px 8px; border: 1px solid currentColor; border-radius: 12px; line-height: 1;
+  letter-spacing: 0.04em; text-transform: uppercase;
 }
-.insp-title { font-weight: 600; font-size: 22px; line-height: 1.15; color: var(--ink); margin: 2px 0 8px; }
-.insp-summary { font-size: 13.5px; line-height: 1.6; color: var(--ink); }
+.insp-title { font-weight: 700; font-size: 20px; line-height: 1.2; color: var(--ink); margin: 2px 0 8px; }
+.insp-summary { font-size: 13.5px; line-height: 1.6; color: var(--ink); font-weight: 400; }
 .insp-close {
-  position: absolute; top: 8px; right: 10px;
-  background: none; border: none; font-family: "Fraunces", serif;
-  font-size: 18px; color: var(--ink-faded); cursor: pointer; line-height: 1;
+  position: absolute; top: 10px; right: 12px;
+  background: none; border: none; font-family: "Inter", sans-serif;
+  font-size: 16px; color: var(--ink-faded); cursor: pointer; line-height: 1;
 }
 .insp-close:hover { color: var(--ink); }
 .insp-annots, .insp-rel {
@@ -208,9 +219,9 @@ svg.board { display: block; margin: 0 auto; }
 }
 .insp-annots-head, .insp-rel-head {
   display: block;
-  font-style: italic; font-size: 10.5px;
+  font-size: 10px; font-weight: 600;
   color: var(--ink-faded);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-bottom: 6px;
 }
@@ -219,26 +230,29 @@ svg.board { display: block; margin: 0 auto; }
   display: flex; flex-direction: column; gap: 4px;
 }
 .insp-annots li {
-  font-family: "Fraunces", serif; font-style: italic;
+  font-family: "Inter", sans-serif;
   font-size: 12.5px; color: var(--ink);
   padding-left: 12px; position: relative;
+  line-height: 1.5;
 }
 .insp-annots li::before {
   content: "\00B7"; position: absolute; left: 2px; top: -2px;
-  font-size: 16px; color: var(--ink-muted);
+  font-size: 16px; color: var(--accent);
 }
 .insp-rel li {
-  font-family: "Fraunces", serif; font-size: 12px;
-  color: var(--ink-muted);
+  font-family: "Inter", sans-serif; font-size: 12px;
+  color: var(--ink-muted); line-height: 1.5;
 }
 
 .folio {
   position: absolute;
   bottom: 14px;
   right: 28px;
-  font-family: "Fraunces", serif;
-  font-style: italic; font-size: 10px;
+  font-family: "Inter", sans-serif;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.06em;
   color: var(--ink-faded); z-index: 6;
+  text-transform: uppercase;
 }
 
 .node-g {
@@ -249,16 +263,17 @@ svg.board { display: block; margin: 0 auto; }
 .node-rect { transition: stroke-width 0.2s, filter 0.2s; }
 .edge-path { transition: opacity 0.25s, stroke-width 0.2s; }
 .edge-label {
-  font-family: "Fraunces", serif; font-style: italic; font-size: 9px;
+  font-family: "Inter", sans-serif; font-size: 9px; font-weight: 500;
   fill: var(--ink-muted); pointer-events: none;
   opacity: 0; transition: opacity 0.25s;
+  letter-spacing: 0.03em;
 }
 .edge-label.show { opacity: 1; }
-.tick-label { font-family: "Fraunces", serif; font-style: italic; font-size: 10.5px; fill: var(--ink-faded); }
+.tick-label { font-family: "Inter", sans-serif; font-size: 10px; font-weight: 500; fill: var(--ink-faded); letter-spacing: 0.04em; }
 .axis-line { stroke: var(--rule); stroke-width: 1; stroke-dasharray: 2 4; }
 .lane-label {
-  font-family: "Fraunces", serif; font-style: italic; font-size: 10.5px;
-  fill: var(--ink-faded); letter-spacing: 0.06em;
+  font-family: "Inter", sans-serif; font-size: 10px; font-weight: 600;
+  fill: var(--ink-faded); letter-spacing: 0.08em; text-transform: uppercase;
 }
 .baseline { stroke: var(--rule-soft); stroke-width: 0.75; }
 
@@ -307,21 +322,20 @@ body.chat-body::before {
   gap: 12px;
 }
 .chat-title {
-  font-family: "Fraunces", serif;
-  font-size: 22px;
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
   font-weight: 700;
   letter-spacing: -0.2px;
   color: var(--ink);
-  font-variant: small-caps;
-  line-height: 1.1;
+  line-height: 1.2;
 }
 .chat-sub {
-  font-family: "Fraunces", serif; font-style: italic; font-size: 12px;
+  font-family: "Inter", sans-serif; font-size: 12px; font-weight: 400;
   color: var(--ink-muted); margin-top: 2px;
 }
 .chat-status {
-  font-family: "JetBrains Mono", monospace; font-size: 10px;
-  color: var(--ink-faded); white-space: nowrap;
+  font-family: "Inter", monospace; font-size: 10px; font-weight: 500;
+  color: var(--ink-faded); white-space: nowrap; letter-spacing: 0.04em;
 }
 
 .chat-scroll {
@@ -339,20 +353,20 @@ body.chat-body::before {
 .msg { max-width: 100%; }
 .msg-meta {
   display: flex; gap: 8px; align-items: center;
-  font-family: "Fraunces", serif; font-style: italic; font-size: 10.5px;
+  font-family: "Inter", sans-serif; font-size: 10px; font-weight: 500;
   color: var(--ink-faded); margin-bottom: 4px;
+  letter-spacing: 0.04em; text-transform: uppercase;
 }
 .meta-tag {
-  font-style: normal;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 9.5px;
+  font-family: "Inter", monospace;
+  font-size: 9.5px; font-weight: 500;
   padding: 1px 6px;
   border: 1px solid var(--rule);
   border-radius: 8px;
   color: var(--ink-muted);
 }
 .msg-body {
-  font-family: "Fraunces", serif;
+  font-family: "Inter", sans-serif;
   font-size: 14px; line-height: 1.65;
   color: var(--ink);
   white-space: pre-wrap; word-wrap: break-word;
@@ -361,21 +375,21 @@ body.chat-body::before {
   background: var(--paper-3);
   border: 1px solid var(--rule);
   padding: 10px 12px;
-  border-radius: 3px;
+  border-radius: 6px;
 }
 .msg.assistant .msg-body {
-  border-left: 2px solid var(--ink-muted);
+  border-left: 2px solid var(--accent);
   padding-left: 12px;
 }
 
 .thinking {
   display: inline-flex; align-items: center; gap: 6px;
-  font-family: "Fraunces", serif; font-style: italic; font-size: 14px;
+  font-family: "Inter", sans-serif; font-size: 14px; font-weight: 400;
   color: var(--ink-muted);
 }
 .thinking .dot {
   width: 4px; height: 4px; border-radius: 50%;
-  background: var(--ink-muted);
+  background: var(--accent);
   animation: blink 1.2s infinite;
 }
 .thinking .dot:nth-child(2) { animation-delay: 0.2s; }
@@ -396,53 +410,56 @@ body.chat-body::before {
   max-height: 200px;
   background: var(--paper);
   border: 1px solid var(--rule);
-  border-radius: 3px;
+  border-radius: 6px;
   padding: 10px 12px;
-  font-family: "Fraunces", serif;
+  font-family: "Inter", sans-serif;
   font-size: 14px; line-height: 1.5;
   color: var(--ink);
   resize: none;
   outline: none;
+  transition: border-color 150ms ease;
 }
-.composer textarea:focus { border-color: var(--ink-muted); background: var(--paper-3); }
+.composer textarea:focus { border-color: var(--accent); background: var(--paper); }
 .composer-row {
   display: flex; justify-content: space-between; align-items: center; margin-top: 8px;
 }
 .composer-hint {
-  font-family: "Fraunces", serif; font-style: italic; font-size: 10.5px;
-  color: var(--ink-faded);
+  font-family: "Inter", sans-serif; font-size: 10px; font-weight: 500;
+  color: var(--ink-faded); letter-spacing: 0.04em;
 }
 .send-btn {
-  font-family: "Fraunces", serif;
+  font-family: "Inter", sans-serif;
   font-size: 12px; font-weight: 600;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  background: var(--ink); color: var(--paper);
-  border: none; border-radius: 2px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  background: var(--accent); color: var(--paper);
+  border: none; border-radius: 6px;
   padding: 8px 16px;
   cursor: pointer;
+  transition: background 150ms ease;
 }
+.send-btn:hover { background: var(--accent-hover); }
 .send-btn:disabled { background: var(--rule); color: var(--ink-faded); cursor: not-allowed; }
 
 .examples {
   display: flex; flex-direction: column; gap: 6px; margin-top: 12px;
 }
 .examples-label {
-  font-family: "Fraunces", serif; font-style: italic; font-size: 11px;
-  color: var(--ink-faded); letter-spacing: 0.06em;
+  font-family: "Inter", sans-serif; font-size: 11px; font-weight: 500;
+  color: var(--ink-faded); letter-spacing: 0.06em; text-transform: uppercase;
 }
 .example-chip {
-  font-family: "Fraunces", serif;
-  font-size: 12.5px;
+  font-family: "Inter", sans-serif;
+  font-size: 12.5px; font-weight: 400;
   color: var(--ink);
   background: var(--paper-2);
   border: 1px solid var(--rule);
-  border-radius: 2px;
+  border-radius: 6px;
   padding: 6px 10px;
   text-align: left;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: background 150ms ease, border-color 150ms ease;
 }
-.example-chip:hover { background: var(--paper-3); }
+.example-chip:hover { background: var(--paper-3); border-color: var(--accent); }
 .example-chip:disabled { opacity: 0.5; cursor: not-allowed; }
 
 ::-webkit-scrollbar { width: 6px; height: 8px; }
