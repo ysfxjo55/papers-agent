@@ -1,6 +1,10 @@
+from datetime import datetime
 from typing import List, Literal, Optional
 from pydantic import BaseModel, Field, ConfigDict
 
+# class Annotation(BaseModel):
+#     node_id: str
+#     text: str
 
 class Node(BaseModel):
     id: str
@@ -26,6 +30,15 @@ class Edge(BaseModel):
 
 class Message(BaseModel):
     role: Literal["user", "assistant"]
+    content: str
+
+
+class ChatRequest(BaseModel):
+    system: str
+    messages: List[Message]
+
+
+class ChatResponse(BaseModel):
     content: str
 
 class GraphResponse(BaseModel):

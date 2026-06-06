@@ -118,14 +118,14 @@ async function callTutor(state: AppState, userText: string): Promise<TutorRespon
 
   const sys = buildTutorSystemPrompt(state)
 
-  const res = await fetch('/api/chat', {
+  const res = await fetch('http://127.0.0.1:8000/chat', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ system: sys, messages: history }),
   })
   if (!res.ok) throw new Error(`API error: ${res.status}`)
   const data = await res.json()
-  return parseTutorResponse(data)
+  return parseTutorResponse(data.content)
 }
 
 export function applyTutorResult(state: AppState, data: TutorResponse): AppState {
