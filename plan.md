@@ -368,6 +368,68 @@ Possible directions, pick one based on Phase 3 data:
 
 ---
 
+## 4.5 Future Expansion — Flexible Categories (proposal, not yet scheduled)
+
+> **Status:** Proposal only. V1 lanes remain locked to AI history (`foundations`, `vision`, `language`, `rl`, `architecture`) per §1.2 and §2. This section captures the idea so it isn't lost; promoting it to a Phase requires unlocking §1.2.
+
+### The idea
+
+Replace the hardcoded category lanes with **dynamic, AI-generated categories per user and per topic**. The AI infers categories from what the user is actually studying, instead of forcing every notebook into the AI-history ontology.
+
+This turns AI Mind from a "specialised AI notebook" into a topic-agnostic thinking tool while keeping the same graph, marginalia, and conversation loop.
+
+### Why add it
+
+- Lanes are currently locked to AI history → the product can only serve AI-history learners.
+- Users studying anything else (philosophy, biology, physics, a codebase) see irrelevant labels and an ontology that doesn't match their mental model.
+- The canvas reads as a *demo of one topic* rather than a *personal tool*.
+
+### Problems if we don't add it
+
+| Problem | Consequence |
+| --- | --- |
+| Locked into AI history | Small addressable market; no path to broader subjects |
+| User must accept our ontology | Onboarding friction for non-AI users |
+| Canvas feels like a demo | Harder to justify $12/mo for a single topic |
+| Hard to repurpose | A future pivot or new domain requires rewriting core graph + prompt logic |
+
+### Who benefits
+
+| User type | Benefit |
+| --- | --- |
+| Self-taught AI reader | No change — categories still match their topic |
+| Philosophy / biology / physics student | Notebook finally fits their domain |
+| Multi-subject power user | One tool covers everything they read |
+| Product team | Pricing and positioning expand beyond "AI history" |
+| Future buyers | Larger TAM, lower domain-lock risk |
+
+### Future expansion paths this unlocks
+
+1. **User-editable categories** — rename, reorder, move lanes manually.
+2. **Merge / split** — AI suggests merging similar categories or splitting an overloaded one.
+3. **Visual customisation** — per-lane colors / icons chosen by the user.
+4. **Category-based search** — "show me everything in Epistemology".
+5. **Multi-notebook** — one notebook per subject, each with its own category set (requires unlocking §1.2 "one notebook per user").
+6. **Per-category export** — "export all my Metaphysics nodes as a timeline".
+7. **Category-aware AI** — the AI proposes a category for each new concept based on the user's prior choices.
+
+### What it would cost to ship
+
+- Schema: replace the static `category` enum with a per-notebook category table (id, name, color, order).
+- Prompt: the LLM contract (§3.3) gains a `category` field and a "propose new category" path.
+- UI: lanes become data-driven; settings UI for renaming/reordering.
+- Migration: existing AI-history notebooks seed the same 5 lanes so nothing breaks.
+
+### Decision needed before scheduling
+
+Pick one:
+
+- **(a) Defer to Phase 3+** — keep v1 locked; revisit after beta validates the core loop. *(Recommended.)*
+- **(b) Promote to Phase 2** — ship alongside billing once trust signals exist.
+- **(c) Rewrite the v1 lock** — make categories dynamic from day one. Bigger MVP scope, higher risk against the 3-week Phase 1 budget.
+
+---
+
 ## 5. Quality bar (taken from the prototype)
 
 The product should feel like:

@@ -11,21 +11,21 @@ export const STORAGE_KEY = 'ai-mind-state-v7'
 export const CHANNEL_NAME = 'ai-mind-channel'
 
 export const CATEGORY_STYLES_LIGHT: CategoryStylesMap = {
-  foundations:  { fill: '#e8dcc4', stroke: '#7a5c2e', text: '#3a2a14', label: 'Foundations' },
-  vision:       { fill: '#d5e0ce', stroke: '#4a6b48', text: '#243a23', label: 'Vision' },
-  language:     { fill: '#e8cdbf', stroke: '#9c4a2e', text: '#4a1f10', label: 'Language' },
-  rl:           { fill: '#cdd5e0', stroke: '#4a5a78', text: '#1f2a40', label: 'Reinforcement' },
-  architecture: { fill: '#e8d8b8', stroke: '#8c6a2e', text: '#3a2a14', label: 'Architecture' },
-  other:        { fill: '#dcd4c4', stroke: '#5a5040', text: '#2a2418', label: 'Other' },
+  foundations:  { fill: '#EDE5D0', stroke: '#A67C52', text: '#1A2332', label: 'Foundations' },
+  vision:       { fill: '#D8E6D8', stroke: '#7A9B7F', text: '#1A2332', label: 'Vision' },
+  language:     { fill: '#EAD8CC', stroke: '#C47A52', text: '#1A2332', label: 'Language' },
+  rl:           { fill: '#D0D8E8', stroke: '#5A7AAA', text: '#1A2332', label: 'Reinforcement' },
+  architecture: { fill: '#E8E0CC', stroke: '#A68C42', text: '#1A2332', label: 'Architecture' },
+  other:        { fill: '#E2DCDA', stroke: '#8B8680', text: '#1A2332', label: 'Other' },
 }
 
 export const CATEGORY_STYLES_DARK: CategoryStylesMap = {
-  foundations:  { fill: '#3a3220', stroke: '#c9a865', text: '#f0e3c2', label: 'Foundations' },
-  vision:       { fill: '#2a3528', stroke: '#8eb086', text: '#d8e8d2', label: 'Vision' },
-  language:     { fill: '#3a2820', stroke: '#d59072', text: '#f3d8c6', label: 'Language' },
-  rl:           { fill: '#252e3c', stroke: '#8aa0c4', text: '#d4ddec', label: 'Reinforcement' },
-  architecture: { fill: '#3a3022', stroke: '#d4a868', text: '#f0deb4', label: 'Architecture' },
-  other:        { fill: '#2c2820', stroke: '#9a8a6a', text: '#d8cdb0', label: 'Other' },
+  foundations:  { fill: '#2A2418', stroke: '#D4956B', text: '#E8E6E1', label: 'Foundations' },
+  vision:       { fill: '#1E2E20', stroke: '#7A9B7F', text: '#E8E6E1', label: 'Vision' },
+  language:     { fill: '#2E2018', stroke: '#D4956B', text: '#E8E6E1', label: 'Language' },
+  rl:           { fill: '#1A2030', stroke: '#7A9BAA', text: '#E8E6E1', label: 'Reinforcement' },
+  architecture: { fill: '#2A2418', stroke: '#C8A852', text: '#E8E6E1', label: 'Architecture' },
+  other:        { fill: '#252020', stroke: '#8B8680', text: '#E8E6E1', label: 'Other' },
 }
 
 export function getCategoryStyles(theme: 'light' | 'dark'): CategoryStylesMap {
