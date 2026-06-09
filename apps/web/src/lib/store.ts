@@ -1,5 +1,6 @@
 import type { AppState, ChatMessage } from './types'
 import { STORAGE_KEY, CATEGORY_STYLES_LIGHT, REL_LABELS, positionNode } from './data'
+import { API_BASE_URL } from './config'
 
 interface TutorResponse {
   reply?: string
@@ -118,7 +119,7 @@ async function callTutor(state: AppState, userText: string): Promise<TutorRespon
 
   const sys = buildTutorSystemPrompt(state)
 
-  const res = await fetch('http://127.0.0.1:8000/chat', {
+  const res = await fetch(`${API_BASE_URL}/chat`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ system: sys, messages: history }),

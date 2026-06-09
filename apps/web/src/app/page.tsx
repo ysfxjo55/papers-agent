@@ -6,6 +6,7 @@ import { ChatPanel } from '@/components/ChatPanel'
 import { loadState, saveState, resetState, setFocus, sendUserMessage } from '@/lib/store'
 import { getCategoryStyles, REL_LABELS } from '@/lib/data'
 import type { AppState } from '@/lib/types'
+import { API_BASE_URL } from '@/lib/config'
 
 const THEME_KEY = 'ai-mind-theme'
 
@@ -17,7 +18,7 @@ export default function Home() {
   useEffect(() => {
     async function loadFromApi() {
       try {
-        const res = await fetch('http://127.0.0.1:8000/notebooks/seed')
+        const res = await fetch(`${API_BASE_URL}/notebooks/seed`)
         if (!res.ok) throw new Error(`seed ${res.status}`)
         const data = await res.json()
         const nodes = (data.nodes ?? []).map((n: any) => ({
