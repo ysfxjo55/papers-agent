@@ -12,4 +12,6 @@ dependencies = [
     "sqlalchemy>=2.0.51",
     "alembic>=1.18.4",
     "psycopg2-binary>=2.9.12",
+    "bcrypt>=4.2.0",
+    "pyjwt>=2.10.0",
 ]

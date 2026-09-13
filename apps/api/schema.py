@@ -55,3 +55,26 @@ class WaitlistRequest(BaseModel):
 
 class WaitlistResponse(BaseModel):
     ok: bool = True
+
+
+class RegisterRequest(BaseModel):
+    name: str
+    email: str
+    password: str
+
+
+class LoginRequest(BaseModel):
+    email: str
+    password: str
+
+
+class UserResponse(BaseModel):
+    id: int
+    name: str
+    email: str
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class OkResponse(BaseModel):
+    ok: bool = True

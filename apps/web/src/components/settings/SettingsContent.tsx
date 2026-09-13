@@ -8,6 +8,7 @@ import { useLocale } from '@/lib/i18n'
 import { loadState, saveState, createInitialState, cancelPendingNotebookSync, resetNotebookOnApi, exportNotebookAsJson } from '@/lib/store'
 import { getGuestTurns, GUEST_LIMIT } from '@/lib/guest'
 import { capture } from '@/lib/analytics'
+import { useAuth } from '@/lib/auth-context'
 
 const THEME_KEY = 'ai-mind-theme'
 
@@ -39,6 +40,7 @@ type SectionId = 'account' | 'notebook' | 'usage' | 'plan' | 'preferences' | 'da
 
 export function SettingsContent() {
   const { t } = useLocale()
+  const { user, signOut } = useAuth()
   const [theme, setTheme] = useState<'light' | 'dark'>('dark')
   const [nodeCount, setNodeCount] = useState(0)
   const [edgeCount, setEdgeCount] = useState(0)
@@ -136,8 +138,8 @@ export function SettingsContent() {
         <div className="settings-dialog">
           <nav className="settings-dialog-nav" aria-label={t.settings_title}>
             <div className="settings-account-summary">
-              <div className="settings-avatar">G</div>
-              <div className="settings-account-name">{t.settings_guest_value}</div>
+              <div className="settings-avatar">{user ? user.name[0]?.toUpperCase() : 'G'}</div>
+              <div className="settings-account-name">{user ? user.name : t.settings_guest_value}</div>
               <div className="settings-account-plan">{t.tier_free_name}</div>
             </div>
             {NAV.map((item) => (
@@ -164,26 +166,35 @@ export function SettingsContent() {
               {/* ── Account ───────────────────────────────────────────── */}
               {section === 'account' && (
                 <>
-                  <div className="settings-guest-notice">
-                    <p>{t.settings_guest_notice}</p>
-                    <div className="settings-guest-actions">
-                      <Link href="/register" className="settings-guest-btn settings-guest-btn--filled">{t.auth_signup_submit}</Link>
-                      <Link href="/login" className="settings-guest-btn settings-guest-btn--ghost">{t.auth_sign_in}</Link>
+                  {!user && (
+                    <div className="settings-guest-notice">
+                      <p>{t.settings_guest_notice}</p>
+                      <div className="settings-guest-actions">
+                        <Link href="/register" className="settings-guest-btn settings-guest-btn--filled">{t.auth_signup_submit}</Link>
+                        <Link href="/login" className="settings-guest-btn settings-guest-btn--ghost">{t.auth_sign_in}</Link>
+                      </div>
                     </div>
-                  </div>
+                  )}
                   <div className="settings-row">
                     <span className="settings-row-label">{t.auth_name_label}</span>
-                    <span className="settings-row-value">{t.settings_guest_value}</span>
+                    <span className="settings-row-value">{user ? user.name : t.settings_guest_value}</span>
                   </div>
                   <div className="settings-row">
                     <span className="settings-row-label">{t.auth_email_label}</span>
-                    <span className="settings-row-value">—</span>
+                    <span className="settings-row-value">{user ? user.email : '—'}</span>
                   </div>
                   <div className="settings-row">
                     <span className="settings-row-label">{t.auth_password_label}</span>
                     <button className="settings-btn" disabled>{t.settings_change_password}</button>
                   </div>
-                  <p className="settings-preview-notice">{t.auth_preview_notice}</p>
+                  {user ? (
+                    <div className="settings-row">
+                      <span className="settings-row-label">{t.settings_sign_out}</span>
+                      <button className="settings-btn" onClick={() => void signOut()}>{t.settings_sign_out}</button>
+                    </div>
+                  ) : (
+                    <p className="settings-preview-notice">{t.auth_preview_notice}</p>
+                  )}
                 </>
               )}
 

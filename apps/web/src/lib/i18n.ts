@@ -136,6 +136,7 @@ export const STRINGS = {
     auth_err_password_match: "Passwords don't match.",
     auth_preview_notice:
       'Accounts aren’t connected yet — this is a preview of the sign-in experience.',
+    auth_generic_error: 'Something went wrong. Please try again.',
 
     guest_turns_left: (n: number) => `${n} free ${n === 1 ? 'question' : 'questions'} left`,
     guest_gate_body:
@@ -147,6 +148,7 @@ export const STRINGS = {
     settings_guest_notice: "You're browsing as a guest. Sign in or create an account to save your notebook to the cloud.",
     settings_guest_value: 'Guest',
     settings_change_password: 'Change password',
+    settings_sign_out: 'Sign out',
     settings_section_notebook: 'Notebook',
     settings_section_usage: 'Usage',
     settings_usage_body: (used: number, limit: number) => `${used} of ${limit} free questions used`,
@@ -289,6 +291,7 @@ export const STRINGS = {
     auth_err_password_match: 'كلمتا المرور غير متطابقتين.',
     auth_preview_notice:
       'الحسابات غير مفعّلة بعد — هذه معاينة لتجربة تسجيل الدخول.',
+    auth_generic_error: 'حدث خطأ ما. يرجى المحاولة مرة أخرى.',
 
     guest_turns_left: (n: number) => `${n} ${n === 1 ? 'سؤال مجاني متبقٍ' : 'أسئلة مجانية متبقية'}`,
     guest_gate_body:
@@ -300,6 +303,7 @@ export const STRINGS = {
     settings_guest_notice: 'أنت تتصفح كضيف. سجّل الدخول أو أنشئ حساباً لحفظ دفترك في السحابة.',
     settings_guest_value: 'ضيف',
     settings_change_password: 'تغيير كلمة المرور',
+    settings_sign_out: 'تسجيل الخروج',
     settings_section_notebook: 'الدفتر',
     settings_section_usage: 'الاستخدام',
     settings_usage_body: (used: number, limit: number) => `${used} من ${limit} أسئلة مجانية مستخدمة`,

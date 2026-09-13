@@ -2,20 +2,25 @@
 
 import { useState, useEffect, type FormEvent } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { BrandLogo } from '@/components/BrandLogo'
 import { LangToggle } from '@/components/LangToggle'
 import { ArrowIcon } from '@/components/ArrowIcon'
 import { useLocale } from '@/lib/i18n'
+import { register, login } from '@/lib/auth'
+import { useAuth } from '@/lib/auth-context'
 
 const THEME_KEY = 'ai-mind-theme'
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 type Mode = 'signin' | 'signup'
-type Errors = Partial<Record<'name' | 'email' | 'password' | 'confirm', string>>
+type Errors = Partial<Record<'name' | 'email' | 'password' | 'confirm' | 'form', string>>
 type Status = 'idle' | 'submitting'
 
 export function AuthContent({ mode }: { mode: Mode }) {
   const { t, isRTL } = useLocale()
+  const router = useRouter()
+  const { refresh } = useAuth()
   const [theme, setTheme] = useState<'light' | 'dark'>('dark')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -50,15 +55,21 @@ export function AuthContent({ mode }: { mode: Mode }) {
     return next
   }
 
-  // TODO: wire to the real auth backend once account storage lands (see [[project-overview]]).
-  // Client-side shape only for now — no request is sent yet.
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     const next = validate()
     setErrors(next)
     if (Object.keys(next).length > 0) return
     setStatus('submitting')
-    window.setTimeout(() => setStatus('idle'), 700)
+    try {
+      if (isSignup) await register(name.trim(), email.trim(), password)
+      else await login(email.trim(), password)
+      await refresh()
+      router.push('/app')
+    } catch (err) {
+      setErrors({ form: err instanceof Error ? err.message : t.auth_generic_error })
+      setStatus('idle')
+    }
   }
 
   return (
@@ -158,6 +169,8 @@ export function AuthContent({ mode }: { mode: Mode }) {
               </div>
             )}
 
+            {errors.form && <p className="auth-field-error auth-form-error">{errors.form}</p>}
+
             <button type="submit" className="auth-btn auth-btn--filled auth-submit" disabled={status === 'submitting'}>
               {status === 'submitting' ? t.auth_submitting : (isSignup ? t.auth_signup_submit : t.auth_signin_submit)}
             </button>
@@ -170,8 +183,6 @@ export function AuthContent({ mode }: { mode: Mode }) {
               <ArrowIcon direction={isRTL ? 'left' : 'right'} />
             </Link>
           </p>
-
-          <p className="auth-preview-notice">{t.auth_preview_notice}</p>
         </div>
 
         <Link href="/" className="auth-back auth-arrow-link auth-arrow-link--lead">

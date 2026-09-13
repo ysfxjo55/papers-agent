@@ -219,6 +219,9 @@ html.dark .auth-page {
   color: #b3402f;
   margin: 0;
 }
+.auth-form-error {
+  margin-bottom: 4px;
+}
 
 /* ── Buttons ─────────────────────────────────────────────────────────────── */
 .auth-btn {

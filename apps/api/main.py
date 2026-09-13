@@ -11,9 +11,11 @@ from schema import (
 from repository import get_notebook, add_waitlist_entry, reset_notebook, save_notebook
 from fastapi.middleware.cors import CORSMiddleware
 
+from auth import router as auth_router
 from tutor import get_ai_reply
 
 app = FastAPI()
+app.include_router(auth_router)
 
 DEFAULT_ORIGINS = "http://localhost:3000,http://127.0.0.1:3000"
 DEFAULT_ORIGIN_REGEX = r"https://.*\.vercel\.app"

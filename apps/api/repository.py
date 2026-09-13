@@ -1,7 +1,7 @@
 from sqlalchemy import select
 
 from database import Session
-from models import Edges, Messages, Nodes, Notebook, WaitlistEntry
+from models import Edges, Messages, Nodes, Notebook, User, WaitlistEntry
 from schema import Edge, GraphResponse, Message, Node
 
 
@@ -122,3 +122,22 @@ def add_waitlist_entry(email: str, source: str, note: str | None = None) -> None
     with Session() as session:
         session.add(WaitlistEntry(email=email, source=source, note=note))
         session.commit()
+
+
+def get_user_by_email(email: str) -> User | None:
+    with Session() as session:
+        return session.scalar(select(User).where(User.email == email))
+
+
+def get_user_by_id(user_id: int) -> User | None:
+    with Session() as session:
+        return session.get(User, user_id)
+
+
+def create_user(name: str, email: str, hashed_password: str) -> User:
+    with Session() as session:
+        user = User(name=name, email=email, hashed_password=hashed_password)
+        session.add(user)
+        session.commit()
+        session.refresh(user)
+        return user
