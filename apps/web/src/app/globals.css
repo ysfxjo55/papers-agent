@@ -312,6 +312,7 @@ body:has(.app.graph-only) {
   .header-btn--export   { display: none; }
   .header-btn--reset    { display: none; }
   .header-btn--settings { display: none; }
+  .header-btn--signout  { display: none; }
 
   /* Overflow trigger: invisible on desktop, shown on mobile */
   .header-btn--overflow {
