@@ -14,4 +14,5 @@ dependencies = [
     "psycopg2-binary>=2.9.12",
     "bcrypt>=4.2.0",
     "pyjwt>=2.10.0",
+    "resend>=2.44.0",
 ]

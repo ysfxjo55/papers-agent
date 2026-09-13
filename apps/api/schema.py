@@ -78,3 +78,12 @@ class UserResponse(BaseModel):
 
 class OkResponse(BaseModel):
     ok: bool = True
+
+
+class RegisterResponse(BaseModel):
+    message: str
+    email: str
+
+
+class ResendVerificationRequest(BaseModel):
+    email: str

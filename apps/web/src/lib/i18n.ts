@@ -137,6 +137,13 @@ export const STRINGS = {
     auth_preview_notice:
       'Accounts aren’t connected yet — this is a preview of the sign-in experience.',
     auth_generic_error: 'Something went wrong. Please try again.',
+    auth_check_email_title: 'Check your email',
+    auth_check_email_body: (email: string) =>
+      `We sent a confirmation link to ${email}. Click it to activate your account, then sign in.`,
+    auth_resend_verification: 'Resend verification email',
+    auth_resend_sent: 'Verification email sent — check your inbox.',
+    auth_verified_success: 'Your email is verified. You can sign in now.',
+    auth_verified_failed: 'That verification link is invalid or has expired.',
 
     guest_turns_left: (n: number) => `${n} free ${n === 1 ? 'question' : 'questions'} left`,
     guest_gate_body:
@@ -292,6 +299,13 @@ export const STRINGS = {
     auth_preview_notice:
       'الحسابات غير مفعّلة بعد — هذه معاينة لتجربة تسجيل الدخول.',
     auth_generic_error: 'حدث خطأ ما. يرجى المحاولة مرة أخرى.',
+    auth_check_email_title: 'تحقق من بريدك الإلكتروني',
+    auth_check_email_body: (email: string) =>
+      `أرسلنا رابط تأكيد إلى ${email}. اضغط عليه لتفعيل حسابك، ثم سجّل الدخول.`,
+    auth_resend_verification: 'إعادة إرسال رابط التأكيد',
+    auth_resend_sent: 'تم إرسال رابط التأكيد — تحقق من بريدك الوارد.',
+    auth_verified_success: 'تم تأكيد بريدك الإلكتروني. يمكنك تسجيل الدخول الآن.',
+    auth_verified_failed: 'رابط التأكيد غير صالح أو منتهي الصلاحية.',
 
     guest_turns_left: (n: number) => `${n} ${n === 1 ? 'سؤال مجاني متبقٍ' : 'أسئلة مجانية متبقية'}`,
     guest_gate_body:

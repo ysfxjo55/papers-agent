@@ -141,3 +141,11 @@ def create_user(name: str, email: str, hashed_password: str) -> User:
         session.commit()
         session.refresh(user)
         return user
+
+
+def mark_email_verified(user_id: int) -> None:
+    with Session() as session:
+        user = session.get(User, user_id)
+        if user is not None:
+            user.email_verified = True
+            session.commit()

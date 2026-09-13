@@ -223,6 +223,38 @@ html.dark .auth-page {
   margin-bottom: 4px;
 }
 
+.auth-banner {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  margin: -8px 0 16px;
+  padding: 10px 14px;
+  border-radius: 8px;
+}
+.auth-banner--success {
+  color: #3f6b4a;
+  background: rgba(63, 107, 74, 0.12);
+}
+.auth-banner--error {
+  color: #b3402f;
+  background: rgba(179, 64, 47, 0.1);
+}
+
+.auth-resend-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--sienna);
+  cursor: pointer;
+  align-self: flex-start;
+  margin-top: -4px;
+}
+.auth-resend-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
 /* ── Buttons ─────────────────────────────────────────────────────────────── */
 .auth-btn {
   display: inline-flex;

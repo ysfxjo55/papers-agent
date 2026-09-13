@@ -1,6 +1,6 @@
 from datetime import datetime, UTC
 
-from sqlalchemy import DateTime, ForeignKey, Integer, JSON, String
+from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, JSON, String
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 
@@ -72,6 +72,9 @@ class User(Base):
     email: Mapped[str] = mapped_column(String, unique=True, index=True)
     hashed_password: Mapped[str] = mapped_column(String)
     name: Mapped[str] = mapped_column(String)
+    email_verified: Mapped[bool] = mapped_column(
+        Boolean, default=False, server_default="false"
+    )
     created_at: Mapped[datetime] = mapped_column(
         DateTime, default=lambda: datetime.now(UTC)
     )

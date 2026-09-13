@@ -6,6 +6,11 @@ export interface CurrentUser {
   email: string
 }
 
+export interface RegisterResult {
+  message: string
+  email: string
+}
+
 async function authFetch<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE_URL}${path}`, {
     ...init,
@@ -19,10 +24,17 @@ async function authFetch<T>(path: string, init?: RequestInit): Promise<T> {
   return res.json()
 }
 
-export function register(name: string, email: string, password: string): Promise<CurrentUser> {
+export function register(name: string, email: string, password: string): Promise<RegisterResult> {
   return authFetch('/auth/register', {
     method: 'POST',
     body: JSON.stringify({ name, email, password }),
+  })
+}
+
+export function resendVerification(email: string): Promise<void> {
+  return authFetch('/auth/resend-verification', {
+    method: 'POST',
+    body: JSON.stringify({ email }),
   })
 }
 

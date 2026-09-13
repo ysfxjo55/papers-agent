@@ -7,11 +7,12 @@ import { BrandLogo } from '@/components/BrandLogo'
 import { LangToggle } from '@/components/LangToggle'
 import { ArrowIcon } from '@/components/ArrowIcon'
 import { useLocale } from '@/lib/i18n'
-import { register, login } from '@/lib/auth'
+import { register, login, resendVerification } from '@/lib/auth'
 import { useAuth } from '@/lib/auth-context'
 
 const THEME_KEY = 'ai-mind-theme'
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const UNVERIFIED_DETAIL = 'Please verify your email before signing in.'
 
 type Mode = 'signin' | 'signup'
 type Errors = Partial<Record<'name' | 'email' | 'password' | 'confirm' | 'form', string>>
@@ -29,6 +30,10 @@ export function AuthContent({ mode }: { mode: Mode }) {
   const [showPassword, setShowPassword] = useState(false)
   const [errors, setErrors] = useState<Errors>({})
   const [status, setStatus] = useState<Status>('idle')
+  const [verificationSent, setVerificationSent] = useState<string | null>(null)
+  const [needsVerification, setNeedsVerification] = useState(false)
+  const [resendStatus, setResendStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
+  const [verifiedBanner, setVerifiedBanner] = useState<'success' | 'failed' | null>(null)
 
   const isSignup = mode === 'signup'
 
@@ -36,6 +41,18 @@ export function AuthContent({ mode }: { mode: Mode }) {
     const saved = localStorage.getItem(THEME_KEY)
     if (saved === 'light' || saved === 'dark') setTheme(saved)
   }, [])
+
+  // Read ?verified=1|0 left by GET /auth/verify's redirect after the user
+  // clicks the confirmation link in their email. Read manually rather than
+  // via next/navigation's useSearchParams so this page keeps its static
+  // prerendering (matches the window.location.hash pattern already used in
+  // SettingsContent).
+  useEffect(() => {
+    if (isSignup) return
+    const verified = new URLSearchParams(window.location.search).get('verified')
+    if (verified === '1') setVerifiedBanner('success')
+    else if (verified === '0') setVerifiedBanner('failed')
+  }, [isSignup])
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark')
@@ -61,15 +78,34 @@ export function AuthContent({ mode }: { mode: Mode }) {
     setErrors(next)
     if (Object.keys(next).length > 0) return
     setStatus('submitting')
+    setNeedsVerification(false)
     try {
-      if (isSignup) await register(name.trim(), email.trim(), password)
-      else await login(email.trim(), password)
+      if (isSignup) {
+        const result = await register(name.trim(), email.trim(), password)
+        setVerificationSent(result.email)
+        setStatus('idle')
+        return
+      }
+      await login(email.trim(), password)
       await refresh()
       router.push('/app')
     } catch (err) {
-      setErrors({ form: err instanceof Error ? err.message : t.auth_generic_error })
+      const message = err instanceof Error ? err.message : t.auth_generic_error
+      setErrors({ form: message })
+      if (!isSignup && message === UNVERIFIED_DETAIL) setNeedsVerification(true)
       setStatus('idle')
     }
+  }
+
+  async function handleResend() {
+    setResendStatus('sending')
+    try {
+      await resendVerification(email.trim())
+    } catch {
+      // Resend endpoint always reports success server-side; a thrown error
+      // here is a network failure, not "email not found" — fail quietly.
+    }
+    setResendStatus('sent')
   }
 
   return (
@@ -90,8 +126,29 @@ export function AuthContent({ mode }: { mode: Mode }) {
       <div className="auth-shell">
         <div className="auth-card">
           <div className="auth-ornament">❧</div>
+
+          {verificationSent ? (
+            <>
+              <h1 className="auth-title">{t.auth_check_email_title}</h1>
+              <p className="auth-sub">{t.auth_check_email_body(verificationSent)}</p>
+              <p className="auth-switch">
+                <Link href="/login" className="auth-arrow-link">
+                  {t.auth_sign_in}
+                  <ArrowIcon direction={isRTL ? 'left' : 'right'} />
+                </Link>
+              </p>
+            </>
+          ) : (
+          <>
           <h1 className="auth-title">{isSignup ? t.auth_signup_title : t.auth_signin_title}</h1>
           <p className="auth-sub">{isSignup ? t.auth_signup_sub : t.auth_signin_sub}</p>
+
+          {!isSignup && verifiedBanner === 'success' && (
+            <p className="auth-banner auth-banner--success">{t.auth_verified_success}</p>
+          )}
+          {!isSignup && verifiedBanner === 'failed' && (
+            <p className="auth-banner auth-banner--error">{t.auth_verified_failed}</p>
+          )}
 
           <form className="auth-form" onSubmit={handleSubmit} noValidate>
             {isSignup && (
@@ -171,6 +228,17 @@ export function AuthContent({ mode }: { mode: Mode }) {
 
             {errors.form && <p className="auth-field-error auth-form-error">{errors.form}</p>}
 
+            {needsVerification && (
+              <button
+                type="button"
+                className="auth-arrow-link auth-resend-btn"
+                onClick={() => void handleResend()}
+                disabled={resendStatus === 'sending'}
+              >
+                {resendStatus === 'sent' ? t.auth_resend_sent : t.auth_resend_verification}
+              </button>
+            )}
+
             <button type="submit" className="auth-btn auth-btn--filled auth-submit" disabled={status === 'submitting'}>
               {status === 'submitting' ? t.auth_submitting : (isSignup ? t.auth_signup_submit : t.auth_signin_submit)}
             </button>
@@ -183,6 +251,8 @@ export function AuthContent({ mode }: { mode: Mode }) {
               <ArrowIcon direction={isRTL ? 'left' : 'right'} />
             </Link>
           </p>
+          </>
+          )}
         </div>
 
         <Link href="/" className="auth-back auth-arrow-link auth-arrow-link--lead">
